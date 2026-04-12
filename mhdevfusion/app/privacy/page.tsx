@@ -64,7 +64,7 @@ const privacyPolicyData: PrivacySection[] = [
     content: (
       <>
         <p>
-          If you have any questions about this privacy policy or our privacy practices, please contact us at: <a href="mailto:salmanramzan6611@gmail.com" className="text-blue-600 hover:text-blue-800">salmanramzan6611@gmail.com</a>.
+          If you have any questions about this privacy policy or our privacy practices, please contact us at: <a href="mailto:mhdevfusion@gmail.com" className="text-blue-600 hover:text-blue-800">mhdevfusion@gmail.com</a>.
         </p>
       </>
     ),

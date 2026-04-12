@@ -108,6 +108,14 @@ export default function Footer() {
                   >
                     +923396411668
                   </a>
+                  <a
+                    href="https://wa.me/12362457238"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white transition-colors block mt-1"
+                  >
+                    +1 (236) 245-7238
+                  </a>
                 </div>
               </li>
               <li className="flex items-start gap-4">
@@ -116,7 +124,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <span className="block text-white font-medium mb-1">Email Us</span>
-                  <a href="mailto:salmanramzan6611@gmail.com" className="text-sm hover:text-white transition-colors">salmanramzan6611@gmail.com</a>
+                  <a href="mailto:mhdevfusion@gmail.com" className="text-sm hover:text-white transition-colors">mhdevfusion@gmail.com</a>
                 </div>
               </li>
             </ul>

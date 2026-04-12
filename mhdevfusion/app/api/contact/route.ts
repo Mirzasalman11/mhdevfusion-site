@@ -11,21 +11,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    // Debug: Log all environment variables
+    console.log('Environment variables check:');
+    console.log('SMTP_HOST:', process.env.SMTP_HOST);
+    console.log('SMTP_USER:', process.env.SMTP_USER);
+    console.log('SMTP_PASS:', process.env.SMTP_PASS ? '***' : 'MISSING');
+    console.log('SMTP_PORT:', process.env.SMTP_PORT);
+    console.log('ADMIN_EMAIL:', process.env.ADMIN_EMAIL);
+
     // Ensure SMTP config exists
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
       console.error('SMTP configuration missing');
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
 
-    // Configure Hostinger Transporter
+    // Configure Gmail SMTP Transporter
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT),
-      secure: true, // true for 465, false for other ports
+      secure: false, // false for 587 (TLS), true for 465 (SSL)
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     // Common email configuration

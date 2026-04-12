@@ -76,13 +76,17 @@ export default function ContactClient() {
 
   const [open, setOpen] = useState(false);
 
-  const validateForm = () =>
-    formData.name &&
-    formData.email &&
-    formData.phone &&
-    formData.company &&
-    formData.service &&
-    formData.message;
+  const validateForm = () => {
+    console.log('Form data validation:', formData);
+    const isValid = 
+      formData.name.trim() &&
+      formData.email.trim() &&
+      formData.phone.trim() &&
+      formData.service.trim() &&
+      formData.message.trim();
+    console.log('Validation result:', isValid);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -170,8 +174,8 @@ export default function ContactClient() {
                     <InfoItem
                       icon={<Mail />}
                       title="Email"
-                      value="salmanramzan6611@gmail.com"
-                      link="mailto:salmanramzan6611@gmail.com"
+                      value="mhdevfusion@gmail.com"
+                      link="mailto:mhdevfusion@gmail.com"
                     />
                     <InfoItem
                       icon={<MapPin />}

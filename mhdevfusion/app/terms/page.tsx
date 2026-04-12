@@ -45,7 +45,7 @@ export default function TermsPage() {
 
             <h3>7. Contact Us</h3>
             <p>
-              If you have any questions about these Terms, please contact us at: <a href="mailto:salmanramzan6611@gmail.com" className="text-blue-600 hover:text-blue-800">salmanramzan6611@gmail.com</a>.
+              If you have any questions about these Terms, please contact us at: <a href="mailto:mhdevfusion@gmail.com" className="text-blue-600 hover:text-blue-800">mhdevfusion@gmail.com</a>.
             </p>
           </div>
         </section>
