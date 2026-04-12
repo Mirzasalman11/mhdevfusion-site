@@ -551,17 +551,7 @@ export default function CalInline() {
                 ) : (
                   <form onSubmit={async (e) => {
                     e.preventDefault();
-                    alert('Form submitted! Check browser console for debug info.');
-
-                    // Debug: Log form data and validation
-                    console.log('=== BOOKING FORM DEBUG ===');
-                    console.log('Form Data:', formData);
-                    console.log('Selected Date:', selectedDate);
-                    console.log('Selected Time:', selectedTime);
-                    console.log('Name (trimmed):', formData.name.trim());
-                    console.log('Email (trimmed):', formData.email.trim());
-                    console.log('Phone (trimmed):', formData.phone.trim());
-                    console.log('Notes (trimmed):', formData.notes.trim());
+                    alert('Thank you! We have received your request and will send you a confirmation email with the meeting details shortly.');
 
                     // Validate required fields
                     const nameValid = !!formData.name.trim();
@@ -571,17 +561,7 @@ export default function CalInline() {
                     const dateValid = !!selectedDate;
                     const timeValid = !!selectedTime;
 
-                    console.log('Validation Results:');
-                    console.log('Name valid:', nameValid);
-                    console.log('Email valid:', emailValid);
-                    console.log('Phone valid:', phoneValid);
-                    console.log('Notes valid:', notesValid);
-                    console.log('Date valid:', dateValid);
-                    console.log('Time valid:', timeValid);
-
                     const isFormValid = nameValid && emailValid && phoneValid && notesValid && dateValid && timeValid;
-                    console.log('Form valid overall:', isFormValid);
-                    console.log('===========================');
 
                     if (!isFormValid) {
                       setBookingStatus("error");
@@ -592,7 +572,6 @@ export default function CalInline() {
 
                     try {
                       // Convert 12-hour time to 24-hour format
-                      console.log('Original selectedTime:', selectedTime);
                       
                       let time24Hour = selectedTime;
                       
@@ -616,11 +595,6 @@ export default function CalInline() {
                       
                       const dateTimeString = `${selectedDate.toISOString().split('T')[0]}T${time24Hour}`;
                       
-                      console.log('Time conversion:', {
-                        original12h: selectedTime,
-                        converted24h: time24Hour,
-                        finalDateTime: dateTimeString
-                      });
                       
                       const bookingData = {
                         name: formData.name.trim(),
@@ -633,7 +607,6 @@ export default function CalInline() {
                         meetingAbout: formData.notes.trim(),
                       };
 
-                      console.log('Sending booking data:', bookingData);
                       
                       const response = await fetch("/api/meeting/book", {
                         method: "POST",
@@ -641,8 +614,6 @@ export default function CalInline() {
                         body: JSON.stringify(bookingData),
                       });
 
-                      console.log('API Response status:', response.status);
-                      console.log('API Response ok:', response.ok);
 
                       if (response.ok) {
                         setBookingStatus("success");
