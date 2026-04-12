@@ -448,6 +448,7 @@ export default function CalInline() {
                   </div>
                 </div>
               </div>
+              
 
               {/* Scrollable slots — takes remaining height */}
               <div style={{
