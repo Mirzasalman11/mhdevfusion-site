@@ -41,3 +41,7 @@ next-env.d.ts
 # OAuth token files
 exchange-code-for-tokens.js
 get-refresh-token.js
+
+# Environment variables
+.env.local
+.env
