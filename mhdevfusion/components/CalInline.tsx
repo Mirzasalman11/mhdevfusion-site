@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Calendar, Clock } from "lucide-react";
 
 export default function CalInline() {
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 3, 1)); // April 2026
@@ -9,11 +10,14 @@ export default function CalInline() {
   const [step, setStep] = useState<"datetime" | "form" | "confirm">("datetime");
   const [timeFormat, setTimeFormat] = useState<"12h" | "24h">("12h");
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", notes: "", guests: "" });
+  const [meetingType, setMeetingType] = useState("consultation");
   const [timezone, setTimezone] = useState("Asia/Karachi");
   const [tzOpen, setTzOpen] = useState(false);
   const [tzSearch, setTzSearch] = useState("");
   const [duration, setDuration] = useState(30);
   const [durOpen, setDurOpen] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [bookingStatus, setBookingStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const timezones = [
     "Asia/Karachi","Asia/Kolkata","Asia/Dubai","Asia/Dhaka","Asia/Kabul",
@@ -507,6 +511,296 @@ export default function CalInline() {
         </div>
       )}
           </div>
+        </div>
+      </div>
+
+      {/* Book Meeting Button and Form Container */}
+      <div className="flex justify-center mt-8">
+        <div className="w-full max-w-5xl">
+          {!showBookingForm ? (
+            <div className="text-center">
+              <button
+                onClick={() => setShowBookingForm(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-medium rounded-lg transition-colors duration-200 inline-flex items-center gap-2"
+              >
+                <Calendar size={20} />
+                Book Meeting
+              </button>
+            </div>
+          ) : (
+            <div className="bg-white border border-border rounded-xl shadow-sm" style={{ maxHeight: "500px", overflow: "auto" }}>
+              <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xl font-semibold text-foreground">Book Your Meeting</h3>
+                  <button
+                    onClick={() => setShowBookingForm(false)}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {bookingStatus === "success" ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Calendar className="text-green-600" size={32} />
+                    </div>
+                    <h4 className="text-lg font-semibold mb-2">Meeting Scheduled!</h4>
+                    <p className="text-muted-foreground">We've sent you a confirmation email with the meeting details.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={async (e) => {
+                    e.preventDefault();
+                    alert('Form submitted! Check browser console for debug info.');
+
+                    // Debug: Log form data and validation
+                    console.log('=== BOOKING FORM DEBUG ===');
+                    console.log('Form Data:', formData);
+                    console.log('Selected Date:', selectedDate);
+                    console.log('Selected Time:', selectedTime);
+                    console.log('Name (trimmed):', formData.name.trim());
+                    console.log('Email (trimmed):', formData.email.trim());
+                    console.log('Phone (trimmed):', formData.phone.trim());
+                    console.log('Notes (trimmed):', formData.notes.trim());
+
+                    // Validate required fields
+                    const nameValid = !!formData.name.trim();
+                    const emailValid = !!formData.email.trim();
+                    const phoneValid = !!formData.phone.trim();
+                    const notesValid = !!formData.notes.trim();
+                    const dateValid = !!selectedDate;
+                    const timeValid = !!selectedTime;
+
+                    console.log('Validation Results:');
+                    console.log('Name valid:', nameValid);
+                    console.log('Email valid:', emailValid);
+                    console.log('Phone valid:', phoneValid);
+                    console.log('Notes valid:', notesValid);
+                    console.log('Date valid:', dateValid);
+                    console.log('Time valid:', timeValid);
+
+                    const isFormValid = nameValid && emailValid && phoneValid && notesValid && dateValid && timeValid;
+                    console.log('Form valid overall:', isFormValid);
+                    console.log('===========================');
+
+                    if (!isFormValid) {
+                      setBookingStatus("error");
+                      return;
+                    }
+
+                    setBookingStatus("loading");
+
+                    try {
+                      // Convert 12-hour time to 24-hour format
+                      console.log('Original selectedTime:', selectedTime);
+                      
+                      let time24Hour = selectedTime;
+                      
+                      // Simple string replacement for common time formats
+                      if (selectedTime.includes('am') || selectedTime.includes('pm')) {
+                        const timeMap: { [key: string]: string } = {
+                          '9:00am': '09:00:00', '9:30am': '09:30:00',
+                          '10:00am': '10:00:00', '10:30am': '10:30:00',
+                          '11:00am': '11:00:00', '11:30am': '11:30:00',
+                          '12:00pm': '12:00:00', '12:30pm': '12:30:00',
+                          '1:00pm': '13:00:00', '1:30pm': '13:30:00',
+                          '2:00pm': '14:00:00', '2:30pm': '14:30:00',
+                          '3:00pm': '15:00:00', '3:30pm': '15:30:00',
+                          '4:00pm': '16:00:00', '4:30pm': '16:30:00',
+                          '5:00pm': '17:00:00', '5:30pm': '17:30:00',
+                          '6:00pm': '18:00:00', '6:30pm': '18:30:00'
+                        };
+                        
+                        time24Hour = timeMap[selectedTime] || selectedTime;
+                      }
+                      
+                      const dateTimeString = `${selectedDate.toISOString().split('T')[0]}T${time24Hour}`;
+                      
+                      console.log('Time conversion:', {
+                        original12h: selectedTime,
+                        converted24h: time24Hour,
+                        finalDateTime: dateTimeString
+                      });
+                      
+                      const bookingData = {
+                        name: formData.name.trim(),
+                        email: formData.email.trim(),
+                        phone: formData.phone.trim(),
+                        company: formData.guests.trim(),
+                        meetingType: meetingType,
+                        dateTime: dateTimeString,
+                        duration: duration,
+                        meetingAbout: formData.notes.trim(),
+                      };
+
+                      console.log('Sending booking data:', bookingData);
+                      
+                      const response = await fetch("/api/meeting/book", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bookingData),
+                      });
+
+                      console.log('API Response status:', response.status);
+                      console.log('API Response ok:', response.ok);
+
+                      if (response.ok) {
+                        setBookingStatus("success");
+                        setFormData({ name: "", email: "", phone: "", notes: "", guests: "" });
+                        setTimeout(() => {
+                          setShowBookingForm(false);
+                          setBookingStatus("idle");
+                        }, 3000);
+                      } else {
+                        setBookingStatus("error");
+                      }
+                    } catch {
+                      setBookingStatus("error");
+                    }
+                  }} className="space-y-4">
+                    <div className="space-y-4">
+                      <div style={{ marginBottom: '16px', backgroundColor: '#f0f8ff', padding: '12px', borderRadius: '8px', border: '2px solid #007bff' }}>
+                        <label className="block text-sm font-medium mb-2" style={{ color: '#007bff', fontWeight: 'bold' }}>Meeting Type *</label>
+                        <select
+                          value={meetingType}
+                          onChange={(e) => {
+                            setMeetingType(e.target.value);
+                            if (bookingStatus === "error") setBookingStatus("idle");
+                          }}
+                          className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+                          style={{ backgroundColor: 'white', border: '1px solid #007bff' }}
+                        >
+                          <option value="consultation">Consultation</option>
+                          <option value="demo">Demo</option>
+                          <option value="support">Support</option>
+                          <option value="sales">Sales Call</option>
+                          <option value="follow-up">Follow-up</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Name *</label>
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => {
+                              setFormData({ ...formData, name: e.target.value });
+                              if (bookingStatus === "error") setBookingStatus("idle");
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Your name"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Email *</label>
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => {
+                              setFormData({ ...formData, email: e.target.value });
+                              if (bookingStatus === "error") setBookingStatus("idle");
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="your@email.com"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Phone *</label>
+                          <input
+                            type="tel"
+                            required
+                            value={formData.phone}
+                            onChange={(e) => {
+                              setFormData({ ...formData, phone: e.target.value });
+                              if (bookingStatus === "error") setBookingStatus("idle");
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="+1234567890"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Company</label>
+                          <input
+                            type="text"
+                            value={formData.guests}
+                            onChange={(e) => {
+                              setFormData({ ...formData, guests: e.target.value });
+                              if (bookingStatus === "error") setBookingStatus("idle");
+                            }}
+                            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Your company"
+                          />
+                        </div>
+                      </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Meeting Date</label>
+                        <input
+                          type="text"
+                          readOnly
+                          value={selectedDate ? selectedDate.toLocaleDateString() : "Select date above"}
+                          className="w-full px-3 py-2 border border-border rounded-lg bg-muted"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Meeting Time</label>
+                        <input
+                          type="text"
+                          readOnly
+                          value={selectedTime}
+                          className="w-full px-3 py-2 border border-border rounded-lg bg-muted"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Meeting Details *</label>
+                      <textarea
+                        required
+                        rows={4}
+                        value={formData.notes}
+                        onChange={(e) => {
+                          setFormData({ ...formData, notes: e.target.value });
+                          if (bookingStatus === "error") setBookingStatus("idle");
+                        }}
+                        className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        placeholder="Tell us what you'd like to discuss..."
+                      />
+                    </div>
+
+                    {bookingStatus === "error" && (
+                      <div className="p-3 bg-red-50 text-red-600 rounded-lg text-sm">
+                        Please fill all required fields: Name, Email, Phone, and Meeting Details. Make sure you've also selected a date and time from the calendar above.
+                      </div>
+                    )}
+
+                    <div className="flex gap-3">
+                      <button
+                        type="submit"
+                        disabled={bookingStatus === "loading"}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+                      >
+                        {bookingStatus === "loading" ? "Booking..." : "Book Meeting"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowBookingForm(false)}
+                        className="px-4 py-3 border border-border rounded-lg font-medium hover:bg-muted transition-colors duration-200"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Calendar } from "lucide-react";
-import { getCalApi } from "@calcom/embed-react";
-import { useEffect } from "react";
+// import BookMeetingButton from "@/components/BookMeetingButton";
 
 import Image from "next/image";
 
@@ -71,13 +70,29 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 h-14 text-lg shadow-lg shadow-primary/20"
-              onClick={async () => {
-                const cal = await getCalApi({});
-                cal("modal", { calLink: process.env.NEXT_PUBLIC_CAL_LINK || "mhdevfusion/30min" });
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 h-14 text-lg shadow-lg shadow-blue-500/20"
+              onClick={() => {
+                // This will open the meeting booking modal
+                const modal = document.createElement('div');
+                modal.innerHTML = `
+                  <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: white; padding: 2rem; border-radius: 1rem; max-width: 600px; width: 90%;">
+                      <h2 style="margin: 0 0 1rem 0; color: #333;">Book a Meeting</h2>
+                      <p style="margin: 0 0 1.5rem 0; color: #666;">Click the button below to schedule your meeting with us.</p>
+                      <button onclick="this.closest('div').parentElement.remove()" style="background: #2563eb; color: white; border: none; padding: 0.75rem 2rem; border-radius: 0.5rem; cursor: pointer; font-size: 1rem;">
+                        Open Meeting Form
+                      </button>
+                      <button onclick="this.closest('div').parentElement.remove()" style="background: #ef4444; color: white; border: none; padding: 0.75rem 1rem; border-radius: 0.5rem; cursor: pointer; margin-left: 0.5rem;">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                `;
+                document.body.appendChild(modal);
               }}
             >
-              Book Meeting <Calendar className="ml-2 w-5 h-5" />
+              <Calendar className="mr-2 w-5 h-5" />
+              Book Meeting
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full px-8 h-14 text-lg border-white/20 hover:bg-white/10 text-white hover:text-white bg-transparent">
               <Link href="/case-studies">View Our Work</Link>
