@@ -101,12 +101,12 @@ export default function Footer() {
                 <div>
                   <span className="block text-white font-medium mb-1">WhatsApp</span>
                   <a
-                    href="https://wa.me/923396411668"
+                    href="https://wa.me/923288482486"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm hover:text-white transition-colors"
                   >
-                    +923396411668
+                    +92 328 8482486
                   </a>
                   <a
                     href="https://wa.me/12362457238"

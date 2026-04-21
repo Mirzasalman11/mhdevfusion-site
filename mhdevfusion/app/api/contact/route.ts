@@ -146,7 +146,7 @@ export async function POST(request: Request) {
                   
                   <div style="margin-top: 20px;">
                     <a href="${process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://mhdevfusion.vercel.app'}" class="btn btn-primary">Visit Our Website</a>
-                    <a href="https://wa.me/923396411668" class="btn btn-whatsapp">Chat on WhatsApp</a>
+                    <a href="https://wa.me/923288482486" class="btn btn-whatsapp">Chat on WhatsApp</a>
                   </div>
                 </div>
                 <div class="footer">

@@ -19,7 +19,7 @@ import {
   Link as LinkIcon,
   BarChart
 } from 'lucide-react';
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPinterest } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPinterest, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 // Using the default placeholder image downloaded to public/placeholder.jpg
@@ -509,7 +509,7 @@ export const blogPosts = [
 export const socialLinks = [
   {
     name: "Facebook",
-    url: "#",
+    url: "https://www.facebook.com/profile.php?id=61569079135477",
     icon: FaFacebook,
   },
   {
@@ -531,5 +531,10 @@ export const socialLinks = [
     name: "Pinterest",
     url: "https://www.pinterest.com/MHDEVFUSION/",
     icon: FaPinterest,
+  },
+  {
+    name: "WhatsApp",
+    url: "https://wa.me/923288482486",
+    icon: FaWhatsapp,
   },
 ];

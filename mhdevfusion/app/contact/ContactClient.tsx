@@ -170,8 +170,8 @@ export default function ContactClient() {
                     <InfoItem
                       icon={<Phone />}
                       title="Phone"
-                      value="+923396411668"
-                      link="tel:+923396411668"
+                      value="+92 328 8482486"
+                      link="tel:+923288482486"
                     />
                     <InfoItem
                       icon={<Mail />}

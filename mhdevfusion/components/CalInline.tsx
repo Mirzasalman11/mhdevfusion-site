@@ -87,7 +87,7 @@ export default function CalInline() {
     const msg = encodeURIComponent(
       `New Booking\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nDate: ${selectedDate.toLocaleDateString()}\nTime: ${selectedTime}\nNotes: ${formData.notes}`
     );
-    window.open(`https://wa.me/923396411668?text=${msg}`, "_blank");
+    window.open(`https://wa.me/923288482486?text=${msg}`, "_blank");
     setStep("confirm");
   };
 
