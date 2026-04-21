@@ -50,6 +50,7 @@ export const metadata: Metadata = {
 };
 
 import ScrollToTop from "@/components/ui/ScrollToTop";
+import ChatButton from "@/components/ChatButton";
 
 export default function RootLayout({
   children,
@@ -75,6 +76,7 @@ export default function RootLayout({
           </main>
 
           <Footer />
+          <ChatButton />
         </ThemeProvider>
       </body>
     </html>
