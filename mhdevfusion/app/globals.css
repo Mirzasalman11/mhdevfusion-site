@@ -107,7 +107,8 @@
   --secondary-foreground: oklch(0.205 0 0);
 
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  /* Darkened from 0.556 to meet WCAG AA 4.5:1 contrast on white */
+  --muted-foreground: oklch(0.5 0 0);
 
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);

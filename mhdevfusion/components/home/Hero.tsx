@@ -103,7 +103,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-16 flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-400"
+            className="mt-16 flex flex-wrap justify-center gap-8 text-sm font-medium text-slate-300"
           >
             {["Verified Expert Team", "100% Client Satisfaction", "Award Winning Agency"].map((item, i) => (
               <div key={i} className="flex items-center gap-2">

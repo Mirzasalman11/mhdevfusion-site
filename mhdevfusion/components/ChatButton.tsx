@@ -193,6 +193,7 @@ export default function ChatButton() {
               </div>
               <button
                 onClick={handleClose}
+                aria-label="Close chat"
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
                 <X size={20} />
@@ -268,6 +269,7 @@ export default function ChatButton() {
                   </div>
                   <button
                     onClick={handleClose}
+                    aria-label="Close chat"
                     className="text-gray-400 hover:text-gray-300 transition-colors"
                   >
                     <X size={18} />
@@ -346,6 +348,7 @@ export default function ChatButton() {
                     />
                     <button
                       onClick={handleSendMessage}
+                      aria-label="Send message"
                       className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg transition-colors"
                     >
                       <Send size={18} />

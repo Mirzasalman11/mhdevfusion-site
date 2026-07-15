@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, CheckCircle2 } from "lucide-react";
@@ -49,10 +50,14 @@ export default function PageHero({
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-slate-900/75 z-10" />
-        <img
+        <Image
           src={bgImage}
           alt="Background"
-          className="w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          quality={75}
+          className="object-cover"
         />
       </div>
 

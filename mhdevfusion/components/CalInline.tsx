@@ -155,7 +155,7 @@ export default function CalInline() {
         }}>
           {/* Back header */}
           <div style={{ borderBottom: "1px solid #f3f4f6", padding: "16px 20px", display: "flex", alignItems: "center", gap: 10 }}>
-            <button onClick={() => setStep("datetime")} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", color: "#6b7280" }}>
+            <button onClick={() => setStep("datetime")} aria-label="Back to date selection" style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", color: "#6b7280" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
             <div>
@@ -365,7 +365,7 @@ export default function CalInline() {
           <div style={{ flex: 1, padding: "28px 28px 24px", borderRight: "1px solid #f3f4f6", overflowY: "auto" }}>
             {/* Month nav */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
-              <button onClick={() => navigateMonth(-1)} style={navBtn}>
+              <button onClick={() => navigateMonth(-1)} aria-label="Previous month" style={navBtn}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
               <h4 style={{ fontSize: 16, fontWeight: 600, color: "#111827", margin: 0 }}>
@@ -373,7 +373,7 @@ export default function CalInline() {
                 {" "}
                 <span style={{ color: "#9ca3af", fontWeight: 400 }}>{yearNum}</span>
               </h4>
-              <button onClick={() => navigateMonth(1)} style={navBtn}>
+              <button onClick={() => navigateMonth(1)} aria-label="Next month" style={navBtn}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </button>
             </div>
@@ -534,6 +534,7 @@ export default function CalInline() {
                   <h3 className="text-xl font-semibold text-foreground">Book Your Meeting</h3>
                   <button
                     onClick={() => setShowBookingForm(false)}
+                    aria-label="Close booking form"
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     ×

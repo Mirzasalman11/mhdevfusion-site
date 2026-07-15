@@ -56,7 +56,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${jakarta.variable} font-sans antialiased flex flex-col min-h-screen w-screen overflow-x-hidden`}>
         <ThemeProvider
           attribute="class"

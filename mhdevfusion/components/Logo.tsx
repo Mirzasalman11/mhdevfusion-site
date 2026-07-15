@@ -30,32 +30,34 @@ export default function Logo({
       {/* Logo Icon */}
       <div
         className={cn(
-          "relative transition-transform duration-300",
+          "relative flex items-center justify-center rounded-lg bg-white shadow-sm ring-1 ring-black/5 transition-transform duration-300",
           isFooter
-            ? "w-12 h-12 drop-shadow-sm group-hover:drop-shadow-md"
-            : "w-12 h-12 group-hover:scale-105",
+            ? "w-11 h-11 drop-shadow-sm group-hover:drop-shadow-md"
+            : "w-11 h-11 group-hover:scale-105",
           iconClassName
         )}
       >
         <img
-          src="/logo.png"
+          src="/logo-sm.webp"
           alt="MHDEVFUSION Logo"
-          className="w-full h-full object-contain"
+          width={36}
+          height={36}
+          className="w-9 h-9 object-contain"
         />
       </div>
 
       {/* Logo Text */}
       {showText && (
         <div className={cn("flex justify-center items-center", isFooter ? "hidden lg:flex" : "")}>
-          <h1
+          <span
             className={cn(
               "text-lg font-bold leading-none tracking-[3px] logoText transition-colors",
               shouldUseWhite ? "text-white" : "text-foreground",
               textClassName
             )}
           >
-            MHDEVFUSION
-          </h1>
+            MH<span className="text-primary">DEV</span>FUSION
+          </span>
         </div>
       )}
     </Link>

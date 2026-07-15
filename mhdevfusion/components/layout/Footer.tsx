@@ -132,10 +132,10 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-400 text-sm">
             © {new Date().getFullYear()} MHDEVFUSION Agency. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-slate-500">
+          <div className="flex gap-6 text-sm text-slate-400">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>

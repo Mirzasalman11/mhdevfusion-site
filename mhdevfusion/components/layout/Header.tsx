@@ -190,7 +190,7 @@ export default function Header() {
             {/* Top */}
             <div className="p-6 flex justify-between items-center border-b">
               <span className="font-bold text-lg">Menu</span>
-              <button onClick={() => setMobileMenuOpen(false)}>
+              <button onClick={() => setMobileMenuOpen(false)} aria-label="Close mobile menu">
                 <X size={28} />
               </button>
             </div>
