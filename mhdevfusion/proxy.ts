@@ -18,6 +18,11 @@ function isLocalHost(host: string) {
   );
 }
 
+// Vercel preview/production URLs (e.g. mhdevfusion-site.vercel.app)
+function isVercelHost(host: string) {
+  return host.endsWith(".vercel.app");
+}
+
 // Redirect any request arriving on a foreign domain (e.g. stale DNS records
 // still pointing at this server's IP) to the canonical domain, so the site's
 // content is never served or indexed under a domain we don't own.
@@ -26,7 +31,7 @@ export function proxy(request: NextRequest) {
     .split(":")[0]
     .toLowerCase();
 
-  if (host && !ALLOWED_HOSTS.has(host) && !isLocalHost(host)) {
+  if (host && !ALLOWED_HOSTS.has(host) && !isLocalHost(host) && !isVercelHost(host)) {
     const url = request.nextUrl.clone();
     url.protocol = "https:";
     url.host = CANONICAL_HOST;
